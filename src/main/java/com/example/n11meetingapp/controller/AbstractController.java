@@ -1,8 +1,9 @@
 package com.example.n11meetingapp.controller;
 
 
+import com.example.n11meetingapp.common.Mapper;
 import com.example.n11meetingapp.dto.GenericDTO;
-import com.example.n11meetingapp.entity.GenericEntity;
+import com.example.n11meetingapp.entity.BaseEntity.GenericEntity;
 import com.example.n11meetingapp.service.AbstractService;
 import com.example.n11meetingapp.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,12 @@ public abstract class AbstractController<E extends GenericEntity, Q extends Gene
 
     @Autowired protected GenericService<E,Q,R> service;
     @Autowired protected AbstractService<E,Q,R> abstractService;
+    // TODO: make Mapper singleton if you have time
+    Mapper mapper = new Mapper();
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Q requestDto) throws Exception {
-        return new ResponseEntity<>(service.create(requestDto), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/create2")
-    public ResponseEntity<?> create2(@RequestBody Q requestDto) throws Exception {
-        return new ResponseEntity<>(service.create(requestDto), HttpStatus.CREATED);
+        return new ResponseEntity<>((R) mapper.convertToType(service.create(requestDto), this.abstractService.getSourceTypeResponse()), HttpStatus.CREATED);
     }
 
 }

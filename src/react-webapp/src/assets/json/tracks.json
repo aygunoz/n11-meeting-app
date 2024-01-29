@@ -1,0 +1,29 @@
+{
+  "track1": [
+    {"startTime": "09:00AM", "title": "Architecting Your Codebase", "duration": 60},
+    {"startTime": "10:00AM", "title": "Overdoing it in Python", "duration": 45},
+    {"startTime": "10:45AM", "title": "Flavors of Concurrency in Java", "duration": 30},
+    {"startTime": "11:15AM", "title": "Ruby Errors from Mismatched Gem Versions", "duration": 45},
+    {"startTime": "12:00PM", "title": "Lunch", "duration": 60},
+    {"startTime": "01:00PM", "title": "Microservices \"Just Right\"", "duration": 60},
+    {"startTime": "02:00PM", "title": "JUnit 5 - Shaping the Future of Testing on the JVM", "duration": 45},
+    {"startTime": "02:45PM", "title": "Pair Programming vs Noise", "duration": 45},
+    {"startTime": "03:30PM", "title": "Perfect Scalability", "duration": 30},
+    {"startTime": "04:00PM", "title": "Apache Spark", "duration": 30},
+    {"startTime": "04:30PM", "title": "User Interface CSS in Apps", "duration": 30},
+    {"startTime": "05:00PM", "title": "Networking Event", "duration": 0}
+  ],
+  "track2": [
+    {"startTime": "09:00AM", "title": "Communicating Over Distance", "duration": 60},
+    {"startTime": "10:00AM", "title": "Rails Magic", "duration": 60},
+    {"startTime": "11:00AM", "title": "Continuous Delivery", "duration": 30},
+    {"startTime": "11:30AM", "title": "Monitoring Reactive Applications", "duration": 30},
+    {"startTime": "12:00PM", "title": "Lunch", "duration": 60},
+    {"startTime": "01:00PM", "title": "AWS Technical Essentials", "duration": 45},
+    {"startTime": "01:45PM", "title": "Clojure Ate Scala (on my project)", "duration": 45},
+    {"startTime": "02:30PM", "title": "A World Without HackerNews", "duration": 30},
+    {"startTime": "03:00PM", "title": "Async Testing on JVM", "duration": 60},
+    {"startTime": "04:00PM", "title": "Cloud Native Java lightning", "duration": 0},
+    {"startTime": "05:00PM", "title": "Networking Event", "duration": 0}
+  ]
+}

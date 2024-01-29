@@ -1,11 +1,11 @@
 package com.example.n11meetingapp.entity;
 
+import com.example.n11meetingapp.dto.requestDTO.TalkRequestDTO;
+import com.example.n11meetingapp.entity.BaseEntity.AbstractEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalTime;
 
@@ -13,11 +13,10 @@ import java.time.LocalTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Talk extends AbstractEntity{
+@Getter
+@Setter
+public class Talk extends AbstractEntity {
     private String title;
     private int duration; // minute
     private LocalTime startTime;
-    @ManyToOne
-    private Conference conference;
 }

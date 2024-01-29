@@ -5,7 +5,7 @@
 ██║ ╚████║ ██║ ██║    ██║  ██║██║     ██║     
 ╚═╝  ╚═══╝ ╚═╝ ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝
 
-http://localhost:8080/h2-console/login.do?jsessionid=dd59276f829ce03ead36ca3c7d3ea2ef
+http://localhost:8080/h2-console
 
 jdbc:h2:mem:testdb
 

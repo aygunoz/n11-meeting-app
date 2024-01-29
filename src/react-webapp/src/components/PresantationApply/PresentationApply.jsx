@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {createTalk} from "../services/TalkService.jsx";
+import {createTalk} from "../../services/TalkService.jsx";
 
 function PresentationApply() {
     const [meetingTitle, setMeetingTitle] = useState('')

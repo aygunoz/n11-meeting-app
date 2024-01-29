@@ -1,0 +1,36 @@
+.conference-schedule {
+    display: flex;
+    justify-content: space-around;
+}
+
+.track {
+    margin: 20px;
+}
+
+.event {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.time {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.title {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.duration {
+    font-style: italic;
+}
+
+.event:hover {
+    border: 1px solid #583fb5;
+}

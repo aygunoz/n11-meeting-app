@@ -1,4 +1,4 @@
-package com.example.n11meetingapp.entity;
+package com.example.n11meetingapp.entity.BaseEntity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

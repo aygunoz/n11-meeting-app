@@ -2,7 +2,7 @@ package com.example.n11meetingapp.service;
 
 import com.example.n11meetingapp.common.Mapper;
 import com.example.n11meetingapp.dto.GenericDTO;
-import com.example.n11meetingapp.entity.GenericEntity;
+import com.example.n11meetingapp.entity.BaseEntity.GenericEntity;
 import com.example.n11meetingapp.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
@@ -18,15 +18,14 @@ public abstract class AbstractService<E extends GenericEntity, Q extends Generic
     Mapper mapper = new Mapper();
 
 
-    public R create(Q requestDTO) throws Exception {
-        E createdEntity = (E) mapper.convertToType(requestDTO, getSourceTypeEntity());
-        return (R) mapper.convertToType(repository.save(createdEntity), getSourceTypeResponse());
+    public E create(Q requestDTO) throws Exception {
+        return repository.saveAndFlush((E) mapper.convertToType(requestDTO, getSourceTypeEntity()));
     }
 
     @Override
-    public R update(Q requestDTO) throws Exception {
-        E createdEntity = (E) mapper.convertToType(requestDTO, getSourceTypeEntity());
-        return (R) mapper.convertToType(repository.save(createdEntity), getSourceTypeResponse());
+    public E update(Q requestDTO) throws Exception {
+        //        return (R) mapper.convertToType(repository.save(createdEntity), getSourceTypeResponse());
+        return repository.saveAndFlush((E) mapper.convertToType(requestDTO, getSourceTypeEntity()));
     }
 
     @Override
@@ -35,36 +34,32 @@ public abstract class AbstractService<E extends GenericEntity, Q extends Generic
     }
 
     @Override
-    public Optional<R> findById(E entity) throws Exception {
-        return Optional.ofNullable((R) mapper.convertToType(repository.findById(entity.getId()), getSourceTypeResponse()));
+    public Optional<E> findById(E entity) throws Exception {
+//        return Optional.ofNullable((R) mapper.convertToType(repository.findById(entity.getId()), getSourceTypeResponse()));
+        return repository.findById(entity.getId());
     }
 
     @Override
-    public Page<R> findAll(Pageable pageable){
-        return null;
-    }
-
-    @Override
-    public R newEntity() throws Exception {
+    public E newEntity() throws Exception {
         E entity = getSourceTypeEntity().getDeclaredConstructor().newInstance();
         return null;
     }
     @SuppressWarnings("unchecked")
-    private Class<E> getSourceTypeEntity() {
+    public Class<E> getSourceTypeEntity() {
         Class<?>[] typeArgs = GenericTypeResolver.resolveTypeArguments(getClass(), GenericService.class);
         assert typeArgs != null;
         return (Class<E>) typeArgs[0];
     }
 
     @SuppressWarnings("unchecked")
-    private Class<Q> getSourceTypeRequest() {
+    public Class<Q> getSourceTypeRequest() {
         Class<?>[] typeArgs = GenericTypeResolver.resolveTypeArguments(getClass(), GenericService.class);
         assert typeArgs != null;
         return (Class<Q>) typeArgs[1];
     }
 
     @SuppressWarnings("unchecked")
-    private Class<R> getSourceTypeResponse() {
+    public Class<R> getSourceTypeResponse() {
         Class<?>[] typeArgs = GenericTypeResolver.resolveTypeArguments(getClass(), GenericService.class);
         assert typeArgs != null;
         return (Class<R>) typeArgs[2];
