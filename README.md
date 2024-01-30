@@ -24,7 +24,7 @@ This project is written with both frontend and backend combined. The 'main' fold
 2. Use following commands to run the application. The project is served from `http://localhost:8080`:
 
        mvn spring-boot:run
-       npm start
+       npm run dev
 
 3. You can check all API documents Swagger below link after started project;
 
