@@ -1,9 +1,4 @@
-███╗   ██╗ ██╗ ██╗     █████╗ ██████╗ ██████╗
-████╗  ██║███║███║    ██╔══██╗██╔══██╗██╔══██╗
-██╔██╗ ██║╚██║╚██║    ███████║██████╔╝██████╔╝
-██║╚██╗██║ ██║ ██║    ██╔══██║██╔═══╝ ██╔═══╝
-██║ ╚████║ ██║ ██║    ██║  ██║██║     ██║     
-╚═╝  ╚═══╝ ╚═╝ ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝
+![home-page.png](readme-pictures%2Fhome-page.png)
 
 ![apply-talk-light.png](readme-pictures%2Fapply-talk-light.png)
 ![apply-talk.png](readme-pictures%2Fapply-talk.png)
