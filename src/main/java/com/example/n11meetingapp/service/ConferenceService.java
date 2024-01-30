@@ -41,22 +41,22 @@ public class ConferenceService extends AbstractService<Conference, ConferenceReq
                 });
 
         for (int i = 0; i < availableConferences.size(); i++) {
-            if (scheduleTaskTime(availableConferences.get(i), talk, networkingEventScheduled)) {
+            if (scheduleTaskTime(availableConferences.get(i), talk)) {
                 break;
             }
             if (i == availableConferences.size() - 1) {
                 Conference newConference = new Conference();
                 this.repository.saveAndFlush(newConference);
-                scheduleTaskTime(newConference, talk, networkingEventScheduled);
+                scheduleTaskTime(newConference, talk);
             }
         }
     }
 
-    private boolean scheduleTaskTime(Conference conference, Talk talk, boolean networkingEventScheduled) {
+    private boolean scheduleTaskTime(Conference conference, Talk talk) {
         // Morning talk's Durations
-        int totalDurationMorning = getTotalMorningTalkDuration(conference.getMorningTalks());
+        int totalDurationMorning = getTotalTalkDuration(conference.getMorningTalks());
         // Afternoon talk's Durations
-        int totalDurationAfternoon = getTotalMorningTalkDuration(conference.getAfternoonTalks());
+        int totalDurationAfternoon = getTotalTalkDuration(conference.getAfternoonTalks());
 
         if (checkMorningAvailability(talk, totalDurationMorning)) {
             conference.getMorningTalks().add(talk);
@@ -67,7 +67,7 @@ public class ConferenceService extends AbstractService<Conference, ConferenceReq
             this.conferenceRepository.save(conference);
             return true;
         } else {
-            if (totalDurationMorning + totalDurationAfternoon >= 360) {
+            if (totalDurationMorning + totalDurationAfternoon >= 420) {
                 conference.setIsFull(true);
                 this.conferenceRepository.save(conference);
             }
@@ -75,20 +75,27 @@ public class ConferenceService extends AbstractService<Conference, ConferenceReq
         }
     }
 
-    public List<ConferenceResponseDTO> setStartDate(List<ConferenceResponseDTO> conferences) {
+    public List<ConferenceResponseDTO> setStartDate(List<ConferenceResponseDTO> conferences, Boolean networkingEventScheduled) {
         for (ConferenceResponseDTO conference : conferences) {
             LocalTime startMorningTime = LocalTime.of(9, 0);
-            addTalkTimes(conference.getMorningTalks(), startMorningTime);
+            addTalkTimes(conference.getMorningTalks(), startMorningTime, "morning", networkingEventScheduled);
             LocalTime afterNoonMorningTime = LocalTime.of(1, 0);
-            addTalkTimes(conference.getAfternoonTalks(), afterNoonMorningTime);
+            addTalkTimes(conference.getAfternoonTalks(), afterNoonMorningTime, "afternoon", networkingEventScheduled);
         }
         return conferences;
     }
 
-    private static void addTalkTimes(List<Talk> talks, LocalTime startTime) {
+    public void addTalkTimes(List<Talk> talks, LocalTime startTime, String whichMeeting, Boolean networkingEventScheduled) {
         for (Talk talk : talks) {
             talk.setStartTime(startTime);
             startTime = startTime.plusMinutes(talk.getDuration());
+        }
+        if (whichMeeting.equals("morning")) {
+            talks.add(new Talk("Lunch", 60,LocalTime.of(12, 0)));
+        }
+        if (whichMeeting.equals("afternoon") && networkingEventScheduled && getTotalTalkDuration(talks) <= 240) {
+            LocalTime networkingEventTime = startTime.isBefore(LocalTime.of(4, 0)) ? LocalTime.of(4, 0) : startTime;
+            talks.add(new Talk("Networking Event", 60, networkingEventTime));
         }
     }
 
@@ -104,7 +111,7 @@ public class ConferenceService extends AbstractService<Conference, ConferenceReq
         return talk.getDuration() + totalDurationAfternoon <= 60 * 4;
     }
 
-    public int getTotalMorningTalkDuration(List<Talk> talkList) {
+    public static int getTotalTalkDuration(List<Talk> talkList) {
         return talkList.stream()
                 .mapToInt(Talk::getDuration)
                 .sum();

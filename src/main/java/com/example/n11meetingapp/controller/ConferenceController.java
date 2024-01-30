@@ -19,6 +19,6 @@ public class ConferenceController extends AbstractController<Conference, Confere
     @GetMapping("/findAll")
     public ResponseEntity<List<ConferenceResponseDTO>> findAll() {
         List<ConferenceResponseDTO> conferenceResponseDTOS = mapper.convertListToType(conferenceService.findAll(), this.abstractService.getSourceTypeResponse());
-        return new ResponseEntity<>(conferenceService.setStartDate(conferenceResponseDTOS), HttpStatus.CREATED);
+        return new ResponseEntity<>(conferenceService.setStartDate(conferenceResponseDTOS, true), HttpStatus.CREATED);
     }
 }

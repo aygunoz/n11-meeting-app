@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public abstract class AbstractDTO implements GenericDTO{
     private Long id;
-    private LocalDateTime createDate = LocalDateTime.now();
     private Long version = 0L;
 
 }

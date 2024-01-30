@@ -6,7 +6,9 @@ function PresentationApply() {
     const [meetingDuration, setMeetingDuration] = useState(30)
 
     const handleApplyButtonClick = () => {
-        createTalk(meetingTitle, meetingDuration).then(r => console.log('başarılı'))
+        createTalk(meetingTitle, meetingDuration).then(r => {
+            setMeetingTitle('');
+        });
     }
 
     return (

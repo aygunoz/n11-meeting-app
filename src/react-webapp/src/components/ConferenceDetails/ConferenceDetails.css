@@ -29,6 +29,8 @@
 
 .duration {
     font-style: italic;
+    flex-grow: 1;
+    margin-left: 10px;
 }
 
 .event:hover {
