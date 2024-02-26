@@ -5,6 +5,8 @@ import com.example.n11meetingapp.repository.ConferenceRepository;
 import com.example.n11meetingapp.repository.TalkRepository;
 import com.example.n11meetingapp.service.ConferenceService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,15 +19,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ConferenceServiceTest {
-
-    @Autowired
+    @InjectMocks
+    private ConferenceService conferenceService;
+    @Mock
     private ConferenceRepository conferenceRepository;
-    @Autowired
+
+    @Mock
     private TalkRepository talkRepository;
 
     @Test
     void testAddTalkTimes() {
-        ConferenceService conferenceService = new ConferenceService(conferenceRepository, talkRepository);
 
         // Morning talks
         List<Talk> morningTalks = TalkRepositoryTest.getTestTalks().subList(0, 3);
